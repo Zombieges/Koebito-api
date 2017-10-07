@@ -7,13 +7,11 @@ function rest_router(router, connection, md5) {
 	self.handleRoutes(router, connection, md5);
 }
 
-
 rest_router.prototype.handleRoutes = function(router, connection, md5) {
-	router.get('/users', function(req, res){
-        //res.json({"Message" : "Hello World !"});
+	router.get('/users', function(req, res) {
         connection.query("select * from users", function(err, rows) {
-        	 if(err) {
-                res.json({"Error" : true, "Message" : "Error executing MySQL query"});
+        	if(err) {
+                res.json({"Error" : true, "Message" : "Error executing MySQL query","err_content" : err});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Users" : rows});
             }
