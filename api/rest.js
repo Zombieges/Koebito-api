@@ -1,10 +1,10 @@
 'use strict';
 
 var mysql     = require('mysql');
-var request   = require('request');
-var url       = require('url');
-var url_parts = url.parse(request.url, true);
-var query     = url_parts.query;
+// var request   = require('request');
+// var url       = require('url');
+// var url_parts = url.parse(request.url, true);
+// var query     = url_parts.query;
 
 function rest_router(router, connection, md5) {
 	var self = this;
@@ -26,7 +26,7 @@ rest_router.prototype.handleRoutes = function(router, connection, md5) {
 
     // get voices info each kind
     router.get('/voices', function(req, res) {
-        connection.query("select v.voiceId,v.kind,ownerId,v.soundUrl,v.title,u.userId,u.userName,u.imageUrl from voices as v Inner join users as u on v.ownerId = u.userId where v.kind = " + query.kind , function(err, rows) {
+        connection.query("select v.voiceId,v.kind,ownerId,v.soundUrl,v.title,u.userId,u.userName,u.imageUrl from voices as v Inner join users as u on v.ownerId = u.userId where v.kind = " + req.query.kind , function(err, rows) {
             if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query","Error Content" : err});
             } else {
