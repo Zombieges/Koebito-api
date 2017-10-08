@@ -1,9 +1,10 @@
 'use strict';
 
-var mysql = require('mysql');
-var url   = require('url');
+var mysql     = require('mysql');
+var request   = require("request");
+var url       = require('url');
 var url_parts = url.parse(request.url, true);
-var query = url_parts.query;
+var query     = url_parts.query;
 
 function rest_router(router, connection, md5) {
 	var self = this;
