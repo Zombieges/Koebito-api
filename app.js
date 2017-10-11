@@ -21,10 +21,10 @@ restConnection.prototype.connectMysql = function() {
 	var self = this;
 	var pool = mysql.createPool({
 		connectionLimit : 100,
-		host     		: config.mysql.master.host, 
- 		user     		: config.mysql.master.user,
- 		password 		: config.mysql.master.password,
- 		database 		: config.mysql.master.database
+		host			: '[host]',
+  		user			: '[user]',
+  		password		: '[password]',
+  		database		: '[database]'
 	});
 	pool.getConnection(function(err, connection){
 		if (err) {
