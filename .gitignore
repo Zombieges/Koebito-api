@@ -1,6 +1,6 @@
 # Unnecessary Files
 .DS_Store
-default.yaml
+#default.yaml
 
 # Logs
 logs
