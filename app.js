@@ -6,8 +6,6 @@ var mysql      = require('mysql');
 var bodyParser = require('body-parser');
 var md5        = require('MD5');
 var fs         = require('fs');
-var yaml       = require('js-yaml');
-var config     = yaml.load(fs.readFileSync('./config/default.yaml','utf8'));
 var rest       = require('./api/rest.js');
 var app        = express();
 
