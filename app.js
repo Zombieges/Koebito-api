@@ -6,8 +6,6 @@ var mysql      = require('mysql');
 var bodyParser = require('body-parser');
 var md5        = require('MD5');
 var fs         = require('fs');
-var yaml       = require('js-yaml');
-var config     = yaml.load(fs.readFileSync('./config/default.yaml','utf8'));
 var rest       = require('./api/rest.js');
 var app        = express();
 
@@ -21,10 +19,10 @@ restConnection.prototype.connectMysql = function() {
 	var self = this;
 	var pool = mysql.createPool({
 		connectionLimit : 100,
-		host     		: config.mysql.master.host, 
- 		user     		: config.mysql.master.user,
- 		password 		: config.mysql.master.password,
- 		database 		: config.mysql.master.database
+		host     		: process.env.HOST,
+ 		user     		: process.env.USER,
+ 		password 		: process.env.PASSWORD,
+ 		database 		: process.env.DATABASE
 	});
 	pool.getConnection(function(err, connection){
 		if (err) {

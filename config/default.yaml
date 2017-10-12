@@ -1,0 +1,6 @@
+mysql:
+  master:
+    host: 'us-cdbr-iron-east-05.cleardb.net'
+    database: 'heroku_9a0640f9a9b33ce'
+    user: 'bcaa0e8a58e406'
+    password: 'ba1dc53d'
