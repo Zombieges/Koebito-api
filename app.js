@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 //var fs         = require('fs');
 var rest       = require('./api/rest.js');
 var app        = express();
+var currentDateAndTime = new Date();
 
 function restConnection() {
 	this.connectMysql();
