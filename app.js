@@ -26,11 +26,11 @@ restConnection.prototype.connectMysql = function() {
     	debug              :  true,
     	waitTimeOut        : 28800,	
 	});
-	this.configureExpress(connection);
+	this.configureExpress(pool);
 }
 
 // start server
-restConnection.prototype.configureExpress = function(connection) {
+restConnection.prototype.configureExpress = function(pool) {
 	// var self = this;
 	// app.use(bodyParser.urlencoded({ extended: true}));
 	// app.use(bodyParser.json());
