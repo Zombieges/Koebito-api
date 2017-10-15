@@ -17,7 +17,7 @@ rest.prototype.handleRoutes = function(router) {
     // get users info
 	router.get('/users', function(req, res) {
         req.mysql.query("select * from users", function(err, rows) {
-        	if(err) {
+            if(err) {
                 res.json({"Error" : true, "Message" : "Error executing MySQL query","Error Content" : err});
             } else {
                 res.json({"Error" : false, "Message" : "Success", "Users" : rows});

@@ -4,8 +4,6 @@
 var express    = require('express');
 var mysql      = require('mysql');
 var bodyParser = require('body-parser');
-//var md5        = require('MD5');
-//var fs         = require('fs');
 var rest       = require('./api/rest.js');
 var app        = express();
 var currentDateAndTime = new Date();
@@ -19,13 +17,13 @@ restConnection.prototype.connectMysql = function() {
 	var pool = mysql.createPool({
 		connectionLimit    : 100,
 		waitForConnections : true,
-	    queueLimit         : 0,
+		queueLimit         : 0,
 		host               : process.env.HOST,
  		user               : process.env.USER,
  		password           : process.env.PASSWORD,
  		database           : process.env.DATABASE,
-    	debug              :  true,
-    	waitTimeOut        : 28800,	
+		debug              :  true,
+		waitTimeOut        : 28800,	
 	});
 	this.configureExpress(pool);
 }
