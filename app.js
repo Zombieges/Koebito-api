@@ -30,15 +30,8 @@ restConnection.prototype.connectMysql = function() {
 	this.configureExpress(pool);
 }
 
-// start server
+// define to use rest.js with pool
 restConnection.prototype.configureExpress = function(pool) {
-	// var self = this;
-	// app.use(bodyParser.urlencoded({ extended: true}));
-	// app.use(bodyParser.json());
-	// var router = express.Router();
-	// app.use('/api', router);
-	// var rest_router = new rest(router, connection, md5);
-	// self.startServer();
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(bodyParser.json());
 	app.use(function (req, res, next) {
@@ -49,7 +42,7 @@ restConnection.prototype.configureExpress = function(pool) {
     this.startServer();
 }
 
-// start node server
+// start server
 restConnection.prototype.startServer = function() {
 	var port = process.env.PORT || 5000;
 	app.listen(port, function() {

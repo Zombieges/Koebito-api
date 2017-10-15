@@ -6,13 +6,14 @@ function rest() {
     this.submit();
 }
 
+// init & call to submit query
 rest.prototype.submit = function() {
     var router = module.exports = express.Router();
     this.handleRoutes(router);
 }
 
+// submit query
 rest.prototype.handleRoutes = function(router) {
-
     // get users info
 	router.get('/users', function(req, res) {
         req.mysql.query("select * from users", function(err, rows) {
@@ -23,7 +24,6 @@ rest.prototype.handleRoutes = function(router) {
             }
         });
 	});
-
     // get voices info each kind
     router.get('/voices', function(req, res) {
         console.log("parameter : " + req.query.kind);
