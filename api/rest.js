@@ -1,6 +1,6 @@
 'use strict';
 
-var express = require("express");
+const express = require("express");
 
 function rest() {
     this.submit();

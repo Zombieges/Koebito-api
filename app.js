@@ -1,12 +1,12 @@
 'use strict';
 
 // call the packages we need
-var express    = require('express');
-var mysql      = require('mysql');
-var bodyParser = require('body-parser');
-var rest       = require('./api/rest.js');
-var app        = express();
-var currentDateAndTime = new Date();
+const express    = require('express'),
+	mysql      = require('mysql'),
+	bodyParser = require('body-parser'),
+	rest       = require('./api/rest.js');,
+	app        = express(),
+	currentDateAndTime = new Date();
 
 function restConnection() {
 	this.connectMysql();
