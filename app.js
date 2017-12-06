@@ -1,56 +1,50 @@
 'use strict';
 
 // call the packages we need
-var express    = require('express');
-var mysql      = require('mysql');
-var bodyParser = require('body-parser');
-var md5        = require('MD5');
-var fs         = require('fs');
-var yaml       = require('js-yaml');
-var config     = yaml.load(fs.readFileSync('./config/default.yaml','utf8'));
-var rest       = require('./api/rest.js');
-var app        = express();
+const express    = require('express'),
+	mysql      = require('mysql'),
+	bodyParser = require('body-parser'),
+	rest       = require('./api/rest.js');,
+	app        = express(),
+	currentDateAndTime = new Date();
 
 function restConnection() {
-	var self = this;
-	self.connectMysql();
+	this.connectMysql();
 }
 
 // define mysql connection
 restConnection.prototype.connectMysql = function() {
-	var self = this;
 	var pool = mysql.createPool({
-		connectionLimit : 100,
-		host     		: config.mysql.master.host, 
- 		user     		: config.mysql.master.user,
- 		password 		: config.mysql.master.password,
- 		database 		: config.mysql.master.database
+		connectionLimit    : 100,
+		waitForConnections : true,
+		queueLimit         : 0,
+		host               : process.env.HOST,
+ 		user               : process.env.USER,
+ 		password           : process.env.PASSWORD,
+ 		database           : process.env.DATABASE,
+		debug              :  true,
+		waitTimeOut        : 28800,	
 	});
-	pool.getConnection(function(err, connection){
-		if (err) {
-			self.stop(err);
-		} else {
-			self.configureExpress(connection);
-		}
-	});
+	this.configureExpress(pool);
+}
+
+// define to use rest.js with pool
+restConnection.prototype.configureExpress = function(pool) {
+	app.use(bodyParser.urlencoded({ extended: true }));
+	app.use(bodyParser.json());
+	app.use(function (req, res, next) {
+    	req.mysql = pool;
+    	next();
+    });
+    app.use('/api', rest);
+    this.startServer();
 }
 
 // start server
-restConnection.prototype.configureExpress = function(connection) {
-	var self = this;
-	app.use(bodyParser.urlencoded({ extended: true}));
-	app.use(bodyParser.json());
-	var router = express.Router();
-	app.use('/api', router);
-	var rest_router = new rest(router, connection, md5);
-	self.startServer();
-}
-
-// start node server
 restConnection.prototype.startServer = function() {
 	var port = process.env.PORT || 5000;
 	app.listen(port, function() {
-		console.log('Magic happens on port ' + port);
+		console.log(currentDateAndTime + 'I am alive at Port ' + port);
 	});
 }
 
